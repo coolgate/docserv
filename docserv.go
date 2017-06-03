@@ -29,7 +29,7 @@ func (h defaultHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			name += "/"
 		}
 	}
-	fmt.Printf("Request: %v\n", html.EscapeString(name))
+	fmt.Printf("%v - Request: %v\n", time.Now().Format("2006-01-02 15:04:05"), html.EscapeString(name))
 	f, exist := files[name]
 	if name == "/" {
 		//dirInfo := renderAsJson(getDirectory(name))
