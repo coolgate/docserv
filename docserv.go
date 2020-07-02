@@ -2,16 +2,16 @@ package main
 
 import (
 	"archive/zip"
+	"bytes"
 	"fmt"
 	"html"
 	"io"
 	"log"
+	"mime"
 	"net/http"
 	"os"
-	"time"
-	"bytes"
 	"strings"
-	"mime"
+	"time"
 )
 
 // 全局变量
@@ -24,8 +24,8 @@ type defaultHandler struct {
 func (h defaultHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Path
 	if strings.HasSuffix(name, "/") == false {
-		_, found := files[name + "/"]
-		if found{
+		_, found := files[name+"/"]
+		if found {
 			name += "/"
 		}
 	}
@@ -63,7 +63,7 @@ func prepareContent(filename string) {
 	fmt.Printf("Total %v items in serve.\n", len(files))
 }
 
-func renderAsJson(childFiles []string, childDirectories []string) string {
+func renderAsJSON(childFiles []string, childDirectories []string) string {
 	jsonChildDirectories := make([]string, 0)
 	jsonChildFiles := make([]string, 0)
 
@@ -145,7 +145,6 @@ func renderAsHtml(childFiles []string, childDirectories []string) string {
 	return content
 
 }
-
 
 func getDirectory(name string) ([]string, []string) {
 	childFiles := make([]string, 0)
